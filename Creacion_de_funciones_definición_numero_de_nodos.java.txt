@@ -1,0 +1,59 @@
+private static void manejoDescoficadoTextoNuevo(Scanner scanner) {
+        System.out.println("Ingrese el texto a descodificar:");
+        CODIFICADO = scanner.nextLine();
+        System.out.println("Texto a descodificar: " + CODIFICADO);
+        textoDescodificado();
+    }
+
+    private static boolean manejoCodificadoTextoNuevo(Scanner scanner) {
+        System.out.println("Ingrese el texto a codificar:");
+        texto = scanner.nextLine();
+        System.out.println("Texto para codificar: " + texto);
+
+        if (!mismoConjuntoCaracteres()) {
+            System.out.println("Entrada no valida");
+            texto = "";
+            return true;
+        }
+        textoCodificado();
+        return false;
+    }
+
+    private static boolean manejoTextoNuevo(Scanner scanner) {
+        int viejaLongitudTexto = texto.length();
+        System.out.println("Ingrese el texto:");
+        texto = scanner.nextLine();
+        if (nuevotextoarchivo && (viejaLongitudTexto != 0 && !mismoConjuntoCaracteres())) {
+            System.out.println("Entrada no valida");
+            texto = "";
+            return true;
+        }
+            C = new int[128];
+            nodos.clear();
+            codigos.clear();
+            CODIFICADO = "";
+            DESCODIFICADO = "";
+            System.out.println("Text: " + texto);
+            calcularIntervalosCaracteres(nodos, true);
+            construirArbol(nodos);
+            generarCodigos(nodos.peek(), "");
+
+            imprimirCodigos();
+            System.out.println("-- Codificando/Descodificando --");
+            textoCodificado();
+            textoDescodificado();
+            return false;
+
+
+
+    }
+
+    private static boolean mismoConjuntoCaracteres() {
+        boolean F = true;
+        for (int i = 0; i < texto.length(); i++)
+            if (C[texto.charAt(i)] == 0) {
+                F = false;
+                break;
+            }
+        return F;
+    }
